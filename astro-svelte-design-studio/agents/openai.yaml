@@ -1,0 +1,6 @@
+interface:
+  display_name: "Astro Svelte Design Studio"
+  short_description: "Design and build polished Astro + Svelte sites"
+  default_prompt: "Use $astro-svelte-design-studio to design and implement a polished website in Astro with Svelte islands."
+policy:
+  allow_implicit_invocation: true

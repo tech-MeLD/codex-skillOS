@@ -1,0 +1,174 @@
+---
+import './design-tokens.css';
+
+export interface Section {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  copy: string;
+  bullets?: string[];
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  sections?: Section[];
+}
+
+const {
+  title,
+  description,
+  eyebrow = 'Design System Ready',
+  primaryCtaLabel = 'Get started',
+  primaryCtaHref = '#contact',
+  secondaryCtaLabel = 'See details',
+  secondaryCtaHref = '#details',
+  sections = [],
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <span class="eyebrow">{eyebrow}</span>
+            <h1>{title}</h1>
+            <p>{description}</p>
+            <div class="hero__actions">
+              <a class="button-primary" href={primaryCtaHref}>{primaryCtaLabel}</a>
+              <a class="button-secondary" href={secondaryCtaHref}>{secondaryCtaLabel}</a>
+            </div>
+          </div>
+          <aside class="surface-card hero__panel" aria-label="Key benefits">
+            <p class="hero__panel-label">Why this layout works</p>
+            <ul>
+              <li>Strong above-the-fold CTA hierarchy</li>
+              <li>Clear proof and explanation path</li>
+              <li>Static-first shell with room for one focused island</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="details" class="details">
+        <div class="container details__grid">
+          {sections.map((section) => (
+            <article class="surface-card detail-card" id={section.id}>
+              {section.eyebrow && <span class="eyebrow">{section.eyebrow}</span>}
+              <h2>{section.title}</h2>
+              <p>{section.copy}</p>
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .hero {
+    padding: var(--space-16) 0 var(--space-12);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .hero__copy h1 {
+    margin: var(--space-4) 0 var(--space-4);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .hero__copy p {
+    max-width: 38rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .hero__panel {
+    padding: var(--space-6);
+  }
+
+  .hero__panel-label {
+    margin: 0 0 var(--space-3);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .hero__panel ul,
+  .detail-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .details {
+    padding-bottom: var(--space-16);
+  }
+
+  .details__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .detail-card {
+    padding: var(--space-6);
+  }
+
+  .detail-card h2 {
+    margin: var(--space-4) 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1;
+  }
+
+  .detail-card p {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    }
+
+    .details__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
