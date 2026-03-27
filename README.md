@@ -20,10 +20,8 @@ Each top-level skill folder is self-contained and follows the same layout:
 
 ## Featured skill
 
-`astro-svelte-design-studio` is a custom website design skill inspired by the structure and product thinking of `ui-ux-pro-max-skill`, but narrowed to one stack: Astro for static-first pages and Svelte for selective interactive islands.
-===========================================================================================================================================================================================
+`astro-svelte-design-studio` is a custom website design skill, but narrowed to one stack: Astro for static-first pages and Svelte for selective interactive islands.
 
 # codex-skillOS
 
 A structured skill library for AI agents and automation.
-
